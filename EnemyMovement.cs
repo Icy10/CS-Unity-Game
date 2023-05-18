@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField]
     Rigidbody2D rb;
     [SerializeField]
     float enemySpeed;
-
     float speedLimiter = 0.7f;
 
 
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
 
+    }
     // Update is called once per frame
     void Update()
     {
