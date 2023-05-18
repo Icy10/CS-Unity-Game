@@ -17,24 +17,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+         rb = GetComponent<Rigidbody2D>();
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        //Spawn an Ememy when I press space
+        if (Input.GetKeyDown("e"))
+        {
+            Instantiate(enemyObject, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        }
+    }
+    private void FixedUpdate()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
-        if(Input.GetKeyDown("space"))
-        {
-            Instantiate(enemyObject);
-        }
-    }
-
-
-    private void FixedUpdate()
-    {
         if (inputHorizontal != 0 || inputVertical != 0)
         {
             if (inputHorizontal != 0 && inputVertical != 0)
@@ -42,15 +40,13 @@ public class PlayerMovement : MonoBehaviour
                 inputHorizontal *= speedLimiter;
                 inputVertical *= speedLimiter;
             }
-
-
             rb.velocity = new Vector2(inputHorizontal * walkSpeed, inputVertical * walkSpeed);
+            transform.up = rb.velocity.normalized;
         }
         else
         {
             rb.velocity = new Vector2(0f, 0f);
         }
-        transform.up = rb.velocity.normalized;
     }
 
 
